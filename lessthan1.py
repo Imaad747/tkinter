@@ -1,10 +1,19 @@
 from tkinter import *
 window=Tk()
-window.geometry("900x900")
-
-
-
-
-
-
+window.geometry("900x800")
+window.title("Classified Security Checkpoint")
+window.config(bg="light blue")
+username_label=Label(window,text="Username:",font=("Helvetica",20,"bold italic"),bg="Light Blue",fg="gray2")
+username_label.place(x=200,y=80)
+passwar_label=Label(window,text="Password:",font=("Helvetica",20,"bold"),bg="Yellow",fg="gray20")
+passwar_label.place(x=200,y=160)
+useeurname_box=Entry(window,font=("Helvetica",20,"bold italic"),bg="White",fg="gray20",width=20)
+useeurname_box.place(x=400,y=80)
+passwar_box=Entry(window,show="*",font=("Helvetica",20,"bold"),bg="Yellow",fg="gray20")
+passwar_box.place(x=400,y=160)
+def declassfication_summary():
+    passwar_box.config(show="" if passwar_box.get() else "*")
+Bolbul=BooleanVar()
+ticka=Checkbutton(window,text="Show your password + access denied",variable=Bolbul,bg="Light Blue",command=declassfication_summary)
+ticka.place(x=200,y=240)
 mainloop()
