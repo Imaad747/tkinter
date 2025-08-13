@@ -20,7 +20,8 @@ def varprogre():
     window.update_idletasks()
     time.sleep(1)
     widgee["value"]=100
-
+interestingbox=Spinbox(window,from_=0,to=10)
+interestingbox.pack()
 menoobarge=Menu(window)
 fightile=Menu(menoobarge,tearoff=0)
 menoobarge.add_cascade(label="File",menu=fightile)
