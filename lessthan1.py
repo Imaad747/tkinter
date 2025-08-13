@@ -11,9 +11,11 @@ useeurname_box=Entry(window,font=("Helvetica",20,"bold italic"),bg="White",fg="g
 useeurname_box.place(x=400,y=80)
 passwar_box=Entry(window,show="*",font=("Helvetica",20,"bold"),bg="Yellow",fg="gray20")
 passwar_box.place(x=400,y=160)
-def declassfication_summary():
-    passwar_box.config(show="" if passwar_box.get() else "*")
+def vacation_summary():
+    passwar_box.config(show="" if Bolbul.get() else "*")
 Bolbul=BooleanVar()
-ticka=Checkbutton(window,text="Show your password + access denied",variable=Bolbul,bg="Light Blue",command=declassfication_summary)
+ticka=Checkbutton(window,text="Show your password + access denied",variable=Bolbul,bg="Light Blue",command=vacation_summary)
 ticka.place(x=200,y=240)
+lock_in=Button(window,font=("Arial",20,"bold italic"),text="Log in")
+lock_in.place(x=200,y=300)
 mainloop()
