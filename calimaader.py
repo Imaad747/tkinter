@@ -20,7 +20,7 @@ entryyear=Entry(window1,font=("Consolas 10",20,"normal"))
 entryyear.place(x=80,y=120)
 enter=Button(window1,text="Show Calendar",font=("Calibri",20,"italic"),command=drawcal)
 enter.place(x=150,y=200)
-exiteee=Button(window1,text="Exit",font=("Comic Sans",20,"normal"))
+exiteee=Button(window1,text="Exit",font=("Comic Sans",20,"normal"),command=exit)
 exiteee.place(x=190,y=300)
 
 
