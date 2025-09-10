@@ -1,0 +1,22 @@
+from tkinter import *
+import random
+window=Tk()
+window.title("Celsius to Fahrenheit Converter")
+window.geometry("600x400")
+def g():
+    info1=round((float(entraumacelf.get()) * 1.8) + 32,2)
+    celfah.delete("1.0",END)
+    celfah.insert(END,info1)
+celfahren=Label(window,text="Celsius -> Fahrenheit",font=("Helvetica",30,"normal"),fg="Grey")
+celfahren.place(x=100,y=0)
+entrecelfa=Label(window,text="Enter Temperature in Celsius:",font=("Helvetica",10,"normal"))
+entraumacelf=Entry(window,font=("Helvetica",10,"normal"))
+entrecelfa.place(x=110,y=60)
+entraumacelf.place(x=300,y=60)
+tempfah=Label(window,text="Temperature in Fahrenheit =",font=("Helvetica",19,"normal"))
+tempfah.place(x=100,y=130)
+celfah=Text(window,height=1,width=30)
+celfah.place(x=100,y=200)
+submitte=Button(window,text="Submit",bg="green",width=50,height=5,command=g)
+submitte.place(x=100,y=260)
+mainloop()
