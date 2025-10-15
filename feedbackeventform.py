@@ -1,11 +1,38 @@
 from tkinter import *
+from tkinter import messagebox
 window=Tk()
 window.geometry("800x900")
 window.title("Event Feedback Form")
-def error():
-    errol=Label(window,text="Error 404",font=("Helvetica",20,"bold italic"),fg="white",bg="Red")
-    errol.place(x=0,y=787)
-#def analysethefeedback():
+def submit_details():
+    getthefeed=feedback_text.get("1.0","end")
+    listindex=randomizer.curselection()
+    infolisters=randomizer.get(listindex[0])
+    excelexcel=excel.get()
+    if excelexcel:
+        excelexcel="Rated As Excellent"
+    gooood=goodvariesalot.get()
+    if gooood:
+        gooood="Rated As Good"
+    iwsbdvar=itwasstablebutdull.get()
+    if iwsbdvar:
+        iwsbdvar="Rated As Average"
+    belowexpectations=disappointment.get()
+    if belowexpectations:
+        belowexpectations="Rated As Poor, overall terrible"
+    iknowyourage=agedrumroll.get()
+    print(excelexcel)
+    print(gooood)
+    print(iwsbdvar)
+    print(belowexpectations)
+    print(iknowyourage)
+    print(getthefeed)
+    print(infolisters)
+    messagebox.showinfo("Thank you for your feedback!",f"{excelexcel},{gooood},{iwsbdvar},{belowexpectations},{iknowyourage},{getthefeed},{infolisters}")
+    
+
+    
+
+
 title_label=Label(window,text="Please enter your feedback!",font=("Helvetica",30,"normal"),bg="red",fg="white")
 title_label.place(x=150,y=30)
 feedback_text=Text(window,font=("Times New Roman",20,"normal"),width=50,height=5)
@@ -29,7 +56,6 @@ unacceptableexperience=Checkbutton(window,text="Poor",variable=disappointment,bg
 unacceptableexperience.place(x=720,y=650)
 agedrumroll=Spinbox(window,from_=18,to=60)
 agedrumroll.place(x=30,y=707)
-theintercontinentalsummit=Button(window,text="Submit",font=("Helvetica",20,"normal"),fg="white",bg="Green",command=analysethefeedback)
+theintercontinentalsummit=Button(window,text="Submit",font=("Helvetica",20,"normal"),fg="white",bg="Green",command=submit_details)
 theintercontinentalsummit.place(x=320,y=787)
-#fdb=str(feedback_text.get())
 mainloop()
