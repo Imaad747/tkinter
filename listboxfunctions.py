@@ -5,7 +5,17 @@ def additem():
     if item:
         listy.insert("end",item)
         newitem_entry.delete(0,"end")
-
+def deleter():
+    #getting the index of all the selected items as tuples
+    selectedindixes=listy.curselection()
+    #print(selectedindixes)
+    for i in selectedindixes:
+        #print(i)
+        listy.delete(i)
+def graspandcontrol():
+    #getting all the items of a listbox as a list
+    allitems=listy.get(0,"end")
+    print(allitems)
 window=Tk()
 #window.geometry("900x800")
 window.title("Welcome to the histbox. Touch it, and you'll either get scratched and injured by a hostile cat or get $25 billion.")
@@ -39,10 +49,10 @@ buttons_frame.pack()
 add_button=Button(buttons_frame,text="Add Item",font=("Helvetica",20,"normal"),command=additem)
 add_button.grid(row=1,column=1)
 
-del_button=Button(buttons_frame,text="Delete Item",font=("Helvetica",20,"normal"))
+del_button=Button(buttons_frame,text="Delete Item",font=("Helvetica",20,"normal"),command=deleter)
 del_button.grid(row=1,column=2)
 
-get_button=Button(buttons_frame,text="Get All Items",font=("Helvetica",20,"normal"))
+get_button=Button(buttons_frame,text="Get All Items",font=("Helvetica",20,"normal"),command=graspandcontrol)
 get_button.grid(row=1,column=3)
 
 clr_button=Button(buttons_frame,text="Clear Selection",font=("Helvetica",20,"normal"))
