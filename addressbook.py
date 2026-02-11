@@ -1,11 +1,49 @@
 from tkinter import *
 from tkinter.ttk import *
+from tkinter import messagebox
 window=Tk()
 window.title("Address Book")
-
+myaddressbook={}
 def edit():
+    clearall()
+    index=contacts_list.curselection()
+    if index:
+        name.insert(0,contacts_list.get(index))
+        details=myaddressbook[name.get()]
+        address.insert(0,details[0])
+        numberphone.insert(0,details[1])
+        email.insert(0,details[2])
+        birthday.insert(0,details[3])
+    else:
+        messagebox.showinfo("Error","Select a name.")
+def clearall():
+    name.delete(0,END)
+    address.delete(0,END)
+    numberphone.delete(0,END)
+    email.delete(0,END)
+    birthday.delete(0,END)
 
-    pass
+def update():
+    key=name.get()
+    if key=="":
+        messagebox.showinfo("Error","Name cannot be empty")
+    else:
+        if key not in myaddressbook.keys():
+            contacts_list.insert(END,key)
+            myaddressbook[key]=(address.get(),numberphone.get(),email.get(),birthday.get())
+            clearall()
+
+def delete():
+    index=contacts_list.curselection()
+    if index:
+        del myaddressbook[contacts_list.get(index)]
+        contacts_list.delete(index)
+        clearall()
+    else:
+        messagebox.showinfo("Error","Select a name")
+
+
+
 
 
 bookname=Label(window,text="My Address Book",width=35)
@@ -55,14 +93,26 @@ birthday.grid(row=6,column=4,padx=5)
 edit_button=Button(window,text="Edit",width=10,command=edit)
 edit_button.grid(row=7,column=0,padx=12,pady=12)
 
-delete_button=Button(window,text="Delete",width=10)
+delete_button=Button(window,text="Delete",width=10,command=delete)
 delete_button.grid(row=7,column=1,pady=12)
 
-update_button=Button(window,text="Update/Add",width=12)
+update_button=Button(window,text="Update/Add",width=12,command=update)
 update_button.grid(row=7,column=4,pady=12)
 
 save_button=Button(window,text="Save",width=10)
 save_button.grid(row=8,column=1,pady=12)
+
+clear_all=Button(window,text="Clear",width=12,command=clearall)
+clear_all.grid(row=7,column=5,pady=12)
+
+
+
+
+
+
+        
+
+
 
 
 
