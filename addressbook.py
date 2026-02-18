@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
+from tkinter.filedialog import *
 window=Tk()
 window.title("Address Book")
 myaddressbook={}
@@ -33,6 +34,26 @@ def update():
             myaddressbook[key]=(address.get(),numberphone.get(),email.get(),birthday.get())
             clearall()
 
+def save():
+    file_out=asksaveasfile(defaultextension=".txt")
+    if file_out:
+        print(myaddressbook,file=file_out)
+        reset()
+    else:
+        messagebox.showinfo("Error 404","Address Book not saved.")
+def openfile():
+    global myaddressbook
+    reset()
+    file_in=askopenfile(title="open file")
+    if file_in:
+        myaddressbook=eval(file_in.read())
+        for key in myaddressbook.keys():
+            contacts_list.insert(END,key)
+            bookname.configure(text=os.path.basename(file_in.name))
+    else:
+        messagebox.showinfo("Error 404","No Address Book Opened.")
+
+
 def delete():
     index=contacts_list.curselection()
     if index:
@@ -41,6 +62,34 @@ def delete():
         clearall()
     else:
         messagebox.showinfo("Error","Select a name")
+
+def display(event):
+    newwindow=Toplevel(window)
+    index=contacts_list.curselection()
+    contact=""
+    if index:
+        key=contacts_list.get(index)
+        contact="Name: "+key+"\n\n"
+        details=myaddressbook[key]
+        contact+="Address: "+details[0]+"\n"
+        contact+="Phone Number: "+details[1]+"\n"
+        contact+="Email Address: "+details[2]+"\n"
+        contact+="Birthday: "+details[3]+"\n"
+
+
+    lbl=Label(newwindow)
+    lbl.grid(row=0,column=0)
+    lbl.configure(text=contact)
+
+def reset():
+    clearall()
+    contacts_list.delete(0,END)
+    myaddressbook.clear()
+    bookname.configure(text="My Address Book")
+
+
+
+
 
 
 
@@ -51,12 +100,13 @@ bookname=Label(window,text="My Address Book",width=35)
 bookname.grid(row=0,column=1,pady=10,columnspan=3)
 
 
-openbutton=Button(window,text="Open")
+openbutton=Button(window,text="Open",command=openfile)
 
 openbutton.grid(row=0,column=3,pady=10)
 
 contacts_list=Listbox(window,width=30,height=15)
 contacts_list.grid(row=2,column=0,columnspan=3,rowspan=5)
+contacts_list.bind('<<ListboxSelect>>',display(Event))
 
 name_label=Label(window,text="Name:")
 name_label.grid(row=2,column=3)
@@ -99,7 +149,7 @@ delete_button.grid(row=7,column=1,pady=12)
 update_button=Button(window,text="Update/Add",width=12,command=update)
 update_button.grid(row=7,column=4,pady=12)
 
-save_button=Button(window,text="Save",width=10)
+save_button=Button(window,text="Save",width=10,command=save)
 save_button.grid(row=8,column=1,pady=12)
 
 clear_all=Button(window,text="Clear",width=12,command=clearall)
