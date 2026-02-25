@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
+from tkinter.filedialog import *
 window=Tk()
 window.title("School Book")
 window.config(bg="Dark green")
@@ -42,6 +43,49 @@ def delete():
         clearall()
     else:
         messagebox.showinfo("Error","Select a name")
+
+def openfile():
+    global myaddressbook
+    reset()
+    file_in=askopenfile(title="open file")
+    if file_in:
+        myaddressbook=eval(file_in.read())
+        for key in myaddressbook.keys():
+            contacts_list.insert(END,key)
+            bookname.configure(text=os.path.basename(file_in.name))
+    else:
+        messagebox.showinfo("Error 404","No Address Book Opened.")
+
+def display(event):
+    newwindow=Toplevel(window)
+    index=contacts_list.curselection()
+    contact=""
+    if index:
+        key=contacts_list.get(index)
+        contact="Name: "+key+"\n\n"
+        details=myaddressbook[key]
+        contact+="Address: "+details[0]+"\n"
+        contact+="Phone Number: "+details[1]+"\n"
+        contact+="Email Address: "+details[2]+"\n"
+        contact+="Birthday: "+details[3]+"\n"
+
+
+    lbl=Label(newwindow)
+    lbl.grid(row=0,column=0)
+    lbl.configure(text=contact)
+
+def reset():
+    clearall()
+    contacts_list.delete(0,END)
+    myaddressbook.clear()
+    bookname.configure(text="My Address Book")
+def save():
+    file_out=asksaveasfile(defaultextension=".txt")
+    if file_out:
+        print(myaddressbook,file=file_out)
+        reset()
+    else:
+        messagebox.showinfo("Error 404","Address Book not saved.")
 
 
 
@@ -100,7 +144,7 @@ delete_button.grid(row=7,column=1,pady=12)
 update_button=Button(window,text="Update/Add",width=12,command=update)
 update_button.grid(row=7,column=4,pady=12)
 
-save_button=Button(window,text="Save",width=10)
+save_button=Button(window,text="Save",width=10,command=save)
 save_button.grid(row=8,column=1,pady=12)
 
 clear_all=Button(window,text="Clear",width=12,command=clearall)
